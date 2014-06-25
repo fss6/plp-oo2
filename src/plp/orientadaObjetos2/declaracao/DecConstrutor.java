@@ -4,6 +4,7 @@ import plp.expressions2.memory.VariavelJaDeclaradaException;
 import plp.expressions2.memory.VariavelNaoDeclaradaException;
 import plp.orientadaObjetos1.comando.Comando;
 import plp.orientadaObjetos1.comando.Procedimento;
+import plp.orientadaObjetos1.comando.Skip;
 import plp.orientadaObjetos1.declaracao.procedimento.DecProcedimentoSimples;
 import plp.orientadaObjetos1.declaracao.procedimento.ListaDeclaracaoParametro;
 import plp.orientadaObjetos1.excecao.declaracao.ClasseJaDeclaradaException;
@@ -12,6 +13,7 @@ import plp.orientadaObjetos1.excecao.declaracao.ProcedimentoJaDeclaradoException
 import plp.orientadaObjetos1.excecao.declaracao.ProcedimentoNaoDeclaradoException;
 import plp.orientadaObjetos1.expressao.leftExpression.Id;
 import plp.orientadaObjetos2.memoria.AmbienteCompilacaoOO2;
+import plp.orientadaObjetos2.memoria.DefClasseOO2;
 
 public class DecConstrutor extends DecProcedimentoSimples {
 	private Id nomeClasse;
@@ -31,7 +33,7 @@ public class DecConstrutor extends DecProcedimentoSimples {
 			throw new ConstrutorNaoDeclaradoException(nomeClasse);
 		}
 	}
-	
+
 	public Procedimento getProcedimento() {
         return new Procedimento(parametrosFormais, comando);
 	}

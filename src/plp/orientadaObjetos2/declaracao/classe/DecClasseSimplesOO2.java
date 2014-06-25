@@ -2,14 +2,22 @@ package plp.orientadaObjetos2.declaracao.classe;
 
 import plp.expressions2.memory.VariavelJaDeclaradaException;
 import plp.expressions2.memory.VariavelNaoDeclaradaException;
+import plp.orientadaObjetos1.comando.Comando;
+import plp.orientadaObjetos1.comando.Skip;
 import plp.orientadaObjetos1.declaracao.classe.DecClasseSimples;
 import plp.orientadaObjetos1.declaracao.procedimento.DecProcedimento;
+import plp.orientadaObjetos1.declaracao.procedimento.ListaDeclaracaoParametro;
 import plp.orientadaObjetos1.declaracao.variavel.DecVariavel;
 import plp.orientadaObjetos1.excecao.declaracao.ClasseJaDeclaradaException;
 import plp.orientadaObjetos1.excecao.declaracao.ClasseNaoDeclaradaException;
+import plp.orientadaObjetos1.excecao.declaracao.ObjetoJaDeclaradoException;
+import plp.orientadaObjetos1.excecao.declaracao.ObjetoNaoDeclaradoException;
 import plp.orientadaObjetos1.excecao.declaracao.ProcedimentoJaDeclaradoException;
 import plp.orientadaObjetos1.excecao.declaracao.ProcedimentoNaoDeclaradoException;
+import plp.orientadaObjetos1.excecao.execucao.EntradaInvalidaException;
 import plp.orientadaObjetos1.expressao.leftExpression.Id;
+import plp.orientadaObjetos1.memoria.AmbienteCompilacaoOO1;
+import plp.orientadaObjetos1.memoria.AmbienteExecucaoOO1;
 import plp.orientadaObjetos1.util.TipoClasse;
 import plp.orientadaObjetos2.declaracao.ConstrutorNaoDeclaradoException;
 import plp.orientadaObjetos2.declaracao.DecConstrutor;
@@ -36,14 +44,30 @@ public class DecClasseSimplesOO2 extends DecClasseSimples {
 		this.construtor = construtor;
 		this.nomeSuperClasse = nomeSuperClasse;
 	}
+	
+	/**
+	 * Declaracao do construtor
+	 * para declaracao de classe simples com construtor default
+	 * @param nomeClasse
+	 * @param nomeSuperClasse
+	 * @param atributos
+	 * @param metodos
+	 */
+	public DecClasseSimplesOO2(Id nomeClasse, Id nomeSuperClasse, DecVariavel atributos,
+			 DecProcedimento metodos) {
+		super(nomeClasse, atributos, metodos);
+		
+		this.construtor = new DecConstrutor(nomeClasse, nomeClasse, new ListaDeclaracaoParametro(), new Skip());
+		this.nomeSuperClasse = nomeSuperClasse;
+	}
 
 	/**
-	 * Cria um mapeamento do identificador para a declaração desta classe.
+	 * Cria um mapeamento do identificador para a declaraï¿½ï¿½o desta classe.
 	 * 
 	 * @param ambiente
 	 *            o ambiente que contem o mapeamento entre identificadores e
 	 *            valores.
-	 * @return o ambiente modificado pela declaração da classe.
+	 * @return o ambiente modificado pela declaraï¿½ï¿½o da classe.
 	 * @throws ConstrutorNaoDeclaradoException 
 	 */
 	public AmbienteExecucaoOO2 elabora(AmbienteExecucaoOO2 ambiente)
@@ -52,7 +76,7 @@ public class DecClasseSimplesOO2 extends DecClasseSimples {
 		// Adiciona a classe no mapeameento de classes
 		ambiente.mapDefClasse(nomeClasse, new DefClasseOO2(nomeClasse, nomeSuperClasse, this.atributos, construtor, metodos));
 		
-		// Verifica se a super classe j‡ foi declarada
+		// Verifica se a super classe jï¿½ foi declarada
 		if (nomeSuperClasse != null) {
 			ambiente.mapSuperClasse(nomeClasse, nomeSuperClasse);
 		}		
@@ -77,14 +101,14 @@ public class DecClasseSimplesOO2 extends DecClasseSimples {
 			ProcedimentoNaoDeclaradoException,
 			ProcedimentoJaDeclaradoException, ConstrutorNaoDeclaradoException {
 		
-		// Verifica se a super classe j‡ foi declarada
+		// Verifica se a super classe jï¿½ foi declarada
 		if (nomeSuperClasse != null) {
 			ambiente.mapSuperClasse(nomeClasse, nomeSuperClasse);
 		}
 		
 		// Adiciona a classe no mapeameento de classes
 		ambiente.mapDefClasse(nomeClasse, new DefClasseOO2(nomeClasse, nomeSuperClasse, this.atributos, construtor, metodos));
-
+		
 		boolean resposta = false;
 		ambiente.incrementa();
 
@@ -98,8 +122,14 @@ public class DecClasseSimplesOO2 extends DecClasseSimples {
 			resposta =  metodos.checaTipo(ambiente);
 		}
 		
-		//Verifica se construtor est‡ declarado corretamente
+		//Verifica se construtor estï¿½ declarado corretamente
 		resposta = resposta && construtor.checaTipo(ambiente);
+		
+		/*if (resposta == false){
+			DecConstrutor cons = new DecConstrutor(this.nomeSuperClasse, this.nomeClasse, null, null);
+			this.construtor = cons;
+			resposta = resposta && construtor.checaTipo(ambiente);
+		}*/
 		
 		ambiente.restaura();
 
