@@ -20,22 +20,22 @@ import plp.orientadaObjetos1.util.TipoPrimitivo;
  */
 public class IfThenElse implements Comando {
 	/**
-	 * Expressão de avaliação.
+	 * Expressï¿½o de avaliaï¿½ï¿½o.
 	 */
     private Expressao expressao;
 	/**
-	 * Comando executado caso a expressão seja verdadeira.
+	 * Comando executado caso a expressï¿½o seja verdadeira.
 	 */
     private Comando comandoThen;
 	/**
-	 * Comando executado caso a expressão seja falsa.
+	 * Comando executado caso a expressï¿½o seja falsa.
 	 */
     private Comando comandoElse;
 	/**
 	 * Construtor.
-	 * @param expressao Expressão de avaliação.
-	 * @param comandoThen Comando executado caso a expressão seja verdadeira.
-	 * @param comandoElse Comando executado caso a expressão seja falsa.
+	 * @param expressao Expressï¿½o de avaliaï¿½ï¿½o.
+	 * @param comandoThen Comando executado caso a expressï¿½o seja verdadeira.
+	 * @param comandoElse Comando executado caso a expressï¿½o seja falsa.
 	 */
     public IfThenElse (Expressao expressao, Comando comandoThen, Comando comandoElse){
         this.expressao = expressao;
@@ -45,8 +45,8 @@ public class IfThenElse implements Comando {
 
     /**
      * Implementa o comando <code>if then else</code>.
-     * @param ambiente o ambiente de execução.
-     * @return o ambiente depois de modificado pela execução
+     * @param ambiente o ambiente de execuï¿½ï¿½o.
+     * @return o ambiente depois de modificado pela execuï¿½ï¿½o
      * do comando <code>if then else</code>.
      */
     public AmbienteExecucaoOO1 executar(AmbienteExecucaoOO1 ambiente)
@@ -60,10 +60,10 @@ public class IfThenElse implements Comando {
     }
 
     /**
-     * Realiza a verificacao de tipos da expressão e dos
+     * Realiza a verificacao de tipos da expressï¿½o e dos
      * comandos do comando <code>if then else</code>
-     * @param ambiente o ambiente de compilação.
-     * @return <code>true</code> se a expressão e os comando são bem tipados;
+     * @param ambiente o ambiente de compilaï¿½ï¿½o.
+     * @return <code>true</code> se a expressï¿½o e os comando sï¿½o bem tipados;
      *          <code>false</code> caso contrario.
      */
     public boolean checaTipo(AmbienteCompilacaoOO1 ambiente)
