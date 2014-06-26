@@ -91,13 +91,7 @@ public class ExpLT extends ExpBinaria{
     	int v1 = ((ValorInteiro)getEsq().avaliar(ambiente)).valor();
         int v2 = ((ValorInteiro)getDir().avaliar(ambiente)).valor();
        
-        boolean compara;
-       	
-        if(v1 < v2){
-        	compara = true;
-        }else{
-        	compara = false;
-        }
+        boolean compara = v1 < v2 ? true : false;
         
         return new ValorBooleano(compara);
     }

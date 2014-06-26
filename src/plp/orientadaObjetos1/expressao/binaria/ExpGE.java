@@ -91,14 +91,8 @@ public class ExpGE extends ExpBinaria{
     	int v1 = ((ValorInteiro)getEsq().avaliar(ambiente)).valor();
         int v2 = ((ValorInteiro)getDir().avaliar(ambiente)).valor();
        
-        boolean compara;
+        boolean compara = v1 >= v2 ? true : false;
        	
-        if(v1 >= v2){
-        	compara = true;
-        }else{
-        	compara = false;
-        }
-        
         return new ValorBooleano(compara);
     }
 }
