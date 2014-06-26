@@ -23,7 +23,11 @@
 	{
 		A a := new A();
 		a.maiorQue(2,3);
-		a.menorQue(2,3)
+		a.menorQue(2,3);
+		a.maiorQue(3,2);
+		a.menorQue(3,2);
+		a.maiorQue(2,2);
+		a.menorQue(3,3)
 	}
 
 }

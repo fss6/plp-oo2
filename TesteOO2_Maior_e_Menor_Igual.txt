@@ -1,0 +1,34 @@
+{
+	classe A{
+		
+		int x = 0;
+
+		proc menorIgual(int x, int y){
+			if(x <= y) then{
+				write("true")
+			}else{
+				write("false")
+			}
+		},
+		proc maiorIgual(int x, int y){
+			if(x >= y) then{
+				write("true")
+			}else{
+				write("false")
+			}
+		}
+		
+		
+	};
+	
+	{
+		A a := new A();
+		a.menorIgual(3,2);
+		a.maiorIgual(3,2);
+		a.menorIgual(3,3);
+		a.maiorIgual(2,2);
+		a.menorIgual(2,3);
+		a.maiorIgual(2,3)
+	}
+
+}

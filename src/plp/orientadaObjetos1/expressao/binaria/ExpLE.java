@@ -16,29 +16,29 @@ import plp.orientadaObjetos1.util.TipoPrimitivo;
 
 
 /**
- * Um objeto desta classe representa uma expressao de Menor Que (esq < dir) entre
+ * Um objeto desta classe representa uma expressao de Menor Igual (esq <= dir) entre
  * Expressoes cuja avaliacao resulta num mesmo valor primitivo.
  */
-public class ExpLT extends ExpBinaria{
+public class ExpLE extends ExpBinaria{
 
     /**
-     * Controi uma expressao de Menor Que (esq < dir) com as sub-expressoes especificadas.
+     * Controi uma expressao de Menor Igual (esq <= dir) com as sub-expressoes especificadas.
      * Assume-se que estas sub-expressoes resultam num mesmo valor primitivo
      * quando avaliadas.
      * @param esq expressao da esquerda
      * @param dir expressao da direita
      */
-    public ExpLT(Expressao esq, Expressao dir){
-        super(esq, dir, "<");
+    public ExpLE(Expressao esq, Expressao dir){
+        super(esq, dir, "<=");
     }
 
     /**
-     * Retorna o valor da expressao de Menor Que (esq < dir)
+     * Retorna o valor da expressao de Menor Igual (esq <= dir)
      */
     public Valor avaliar(AmbienteExecucaoOO1 ambiente)
         throws VariavelNaoDeclaradaException, VariavelJaDeclaradaException,
         ObjetoNaoDeclaradoException, ClasseNaoDeclaradaException {
-        return verificarMenorQue(ambiente);
+        return verificarMenorIgual(ambiente);
     }
 
     /**
@@ -79,12 +79,12 @@ public class ExpLT extends ExpBinaria{
 
     /**
      * Retorna o valor booleano que representa o resultado da comparacao de
-     * Menor Que (esq < dir) entre duas expressoes
+     * Menor Igual (esq <= dir) entre duas expressoes
      * @param ambiente ? o Ambiente de Execu??o
      * @return o valor inteiro que representa o resultado da concatenacao de dois Strings
      * @throws ClasseNaoDeclaradaException 
      */
-    private ValorBooleano verificarMenorQue(AmbienteExecucaoOO1 ambiente)
+    private ValorBooleano verificarMenorIgual(AmbienteExecucaoOO1 ambiente)
             throws VariavelJaDeclaradaException, VariavelNaoDeclaradaException,
                    ObjetoNaoDeclaradoException, ClasseNaoDeclaradaException{
         
@@ -93,7 +93,7 @@ public class ExpLT extends ExpBinaria{
        
         boolean compara;
        	
-        if(v1 < v2){
+        if(v1 <= v2){
         	compara = true;
         }else{
         	compara = false;
