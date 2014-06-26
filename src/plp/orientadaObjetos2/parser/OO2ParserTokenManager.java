@@ -29,6 +29,7 @@ import plp.orientadaObjetos1.expressao.binaria.ExpAnd;
 import plp.orientadaObjetos1.expressao.binaria.ExpConcat;
 import plp.orientadaObjetos1.expressao.binaria.ExpEquals;
 import plp.orientadaObjetos1.expressao.binaria.ExpGT;
+import plp.orientadaObjetos1.expressao.binaria.ExpLT;
 import plp.orientadaObjetos1.expressao.binaria.ExpOr;
 import plp.orientadaObjetos1.expressao.binaria.ExpSoma;
 import plp.orientadaObjetos1.expressao.binaria.ExpSub;

@@ -1,0 +1,29 @@
+{
+	classe A{
+		
+		int x = 0;
+		
+		proc maiorQue(int x, int y){
+			if(x > y) then{
+				write("true")
+			}else{
+				write("false")
+			}
+		},
+		proc menorQue(int x, int y){
+			if(x < y) then{
+				write("true")
+			}else{
+				write("false")
+			}
+		}
+		
+	};
+	
+	{
+		A a := new A();
+		a.maiorQue(2,3);
+		a.menorQue(2,3)
+	}
+
+}
