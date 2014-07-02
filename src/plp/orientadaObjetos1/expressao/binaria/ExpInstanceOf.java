@@ -5,46 +5,52 @@ import plp.expressions2.memory.VariavelNaoDeclaradaException;
 import plp.orientadaObjetos1.excecao.declaracao.ClasseNaoDeclaradaException;
 import plp.orientadaObjetos1.excecao.declaracao.ObjetoNaoDeclaradoException;
 import plp.orientadaObjetos1.expressao.Expressao;
+import plp.orientadaObjetos1.expressao.leftExpression.Id;
 import plp.orientadaObjetos1.expressao.leftExpression.LeftExpression;
 import plp.orientadaObjetos1.expressao.valor.Valor;
 import plp.orientadaObjetos1.expressao.valor.ValorBooleano;
-import plp.orientadaObjetos1.expressao.valor.ValorInteiro;
+import plp.orientadaObjetos1.expressao.valor.ValorRef;
 import plp.orientadaObjetos1.memoria.AmbienteCompilacaoOO1;
 import plp.orientadaObjetos1.memoria.AmbienteExecucaoOO1;
+import plp.orientadaObjetos1.memoria.DefClasse;
+import plp.orientadaObjetos1.memoria.Objeto;
 import plp.orientadaObjetos1.util.Tipo;
 import plp.orientadaObjetos1.util.TipoClasse;
 import plp.orientadaObjetos1.util.TipoPrimitivo;
+import plp.orientadaObjetos2.memoria.DefClasseOO2;
+
 
 /**
- * Um objeto desta classe representa uma expressao de Soma.
+ * Um objeto desta classe representa uma expressao de Igualdade entre
+ * Expressoes cuja avaliacao resulta num mesmo valor primitivo.
  */
-public class ExpInstanceOf extends ExpBinaria {
+public class ExpInstanceOf extends ExpBinaria{
 
     /**
-     * Controi uma expressao de Soma com as sub-expressoes especificadas.
-     * Assume-se que estas sub-expressoes resultam em <code>ValorInteiro</code>
+     * Controi uma expressao de Igualdade com as sub-expressoes especificadas.
+     * Assume-se que estas sub-expressoes resultam num mesmo valor primitivo
      * quando avaliadas.
      * @param esq expressao da esquerda
      * @param dir expressao da direita
      */
-    public ExpInstanceOf(Expressao esq, Expressao dir) {
+    public ExpInstanceOf(Expressao esq, Expressao dir){
         super(esq, dir, "<=>");
     }
 
     /**
-     * Retorna o valor da expressao de Soma
+     * Retorna o valor da expressao de Igualdade
      */
     public Valor avaliar(AmbienteExecucaoOO1 ambiente)
         throws VariavelNaoDeclaradaException, VariavelJaDeclaradaException,
-               ObjetoNaoDeclaradoException, ClasseNaoDeclaradaException {
-        return obterResultadoInstanceOf(ambiente);
+        ObjetoNaoDeclaradoException, ClasseNaoDeclaradaException {
+        return verificarIgualdade(ambiente);
     }
 
     /**
      * Realiza a verificacao de tipos desta expressao.
      *
-     * @param ambiente o ambiente de compila??o.
-     * @return <code>true</code> se os tipos da expressao s?o v?lidos;
+     * @param ambiente o ambiente de compila��o.
+     * @return <code>true</code> se os tipos da expressao s�o v�lidos;
      *          <code>false</code> caso contrario.
      * @exception VariavelNaoDeclaradaException se existir um identificador
      *          nao declarado no ambiente.
@@ -55,52 +61,57 @@ public class ExpInstanceOf extends ExpBinaria {
         throws VariavelNaoDeclaradaException, ClasseNaoDeclaradaException {
         
     	boolean result = false;
-        /*if (super.checaTipo(ambiente) &&
-           ((TipoPrimitivo)getEsq().getTipo(ambiente)).eInteiro() &&
-            ((TipoPrimitivo)getDir().getTipo(ambiente)).eInteiro()) {
-            result = true;
-        }
-        else {
-            result = false;
-        }*/
-        LeftExpression Obj1 = (LeftExpression) getEsq();
-		LeftExpression Obj2   = (LeftExpression) getDir();
+    	
+    	LeftExpression expClasse = (LeftExpression) getDir();
+    	//Levanta excecao caso a classe nao esteja declarada
+    	DefClasse classe = ambiente.getDefClasse(expClasse.getId());
 		
-
-		Tipo tipoObj1 = ambiente.getTipo(Obj1.getId());
-		Tipo tipoObj2 = ambiente.getTipo(Obj2.getId());
-		
-		if (tipoObj1 instanceof TipoClasse && tipoObj2 instanceof TipoClasse)
-			result = true;
-	
-
-		return (result);//((Object)tipoObj2).getClass().equals(tipoObj1));
-        //return result;
+ 
+        if(getEsq().getTipo(ambiente) instanceof TipoClasse ||classe != null) 
+        	result = true;
+            
+        return result;
     }
 
     /**
      * Retorna os tipos possiveis desta expressao.
      *
-     * @param ambiente o ambiente de compila??o.
+     * @param ambiente o ambiente de compila��o.
      * @return os tipos possiveis desta expressao.
-     * @throws ClasseNaoDeclaradaException 
-     * @throws VariavelNaoDeclaradaException 
      */
-    public Tipo getTipo(AmbienteCompilacaoOO1 ambiente) throws VariavelNaoDeclaradaException, ClasseNaoDeclaradaException {
-    	
-    	LeftExpression Obj = (LeftExpression) getEsq();
-        return Obj.getTipo(ambiente);
+    public Tipo getTipo(AmbienteCompilacaoOO1 ambiente) {
+        return TipoPrimitivo.TIPO_BOOLEANO;
     }
 
     /**
-     * Retorna o valor inteiro que representa o resultado da soma das duas express?es
-     * @param ambiente ? o Ambiente de Execu??o
-     * @return o valor inteiro que representa o resultado da soma das duas express?es
+     * Retorna o valor booleano que representa o resultado da comparacao de igualdade
+     * de duas expressoes
+     * @param ambiente � o Ambiente de Execu��o
+     * @return o valor inteiro que representa o resultado da concatenacao de dois Strings
      * @throws ClasseNaoDeclaradaException 
      */
-    private ValorBooleano obterResultadoInstanceOf(AmbienteExecucaoOO1 ambiente)
+    private ValorBooleano verificarIgualdade(AmbienteExecucaoOO1 ambiente)
             throws VariavelJaDeclaradaException, VariavelNaoDeclaradaException,
                    ObjetoNaoDeclaradoException, ClasseNaoDeclaradaException{
-        return new ValorBooleano(true);
+        
+    	boolean compara = false;
+        
+        ValorRef vr = (ValorRef) getEsq().avaliar(ambiente); // recupera o id do objeto
+        Objeto objeto =  ambiente.getObjeto(vr);// recupera o objeto
+	    Id idObjeto = objeto.getClasse(); // recupera o tipo do objeto
+	    
+	    LeftExpression classe   = (LeftExpression) getDir();
+	    DefClasseOO2 defClasse = (DefClasseOO2) ambiente.getDefClasse(idObjeto);
+	    Id idSuperClasse = defClasse.getNomeSuperClasse();
+	    
+	    //Verifica se o objeto e da mesma instancia da classe
+        if (idObjeto.equals(classe)){
+        	compara = true;
+        //Verifica se o objeto e da mesma instancia da super classe	
+        }else if(idSuperClasse != null && idSuperClasse.equals(classe)){
+        	compara = true;
+        }
+     
+        return new ValorBooleano(compara);
     }
 }
