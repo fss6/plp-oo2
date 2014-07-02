@@ -34,7 +34,7 @@ public class ExpInstanceOf extends ExpBinaria{
      * @param dir expressao da direita
      */
     public ExpInstanceOf(Expressao esq, Expressao dir){
-        super(esq, dir, "<=>");
+        super(esq, dir, "instanceof");
     }
 
     /**
