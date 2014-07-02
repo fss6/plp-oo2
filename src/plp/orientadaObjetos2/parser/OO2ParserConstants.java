@@ -144,6 +144,8 @@ public interface OO2ParserConstants {
   int XOR = 71;
   /** RegularExpression Id. */
   int REM = 72;
+  /** RegularExpression Id. */
+  int INSTANCEOF = 73;
 
   /** Lexical state. */
   int DEFAULT = 0;
@@ -223,6 +225,7 @@ public interface OO2ParserConstants {
     "\"|\"",
     "\"^\"",
     "\"%\"",
+    "\"<=>\"",
   };
 
 }

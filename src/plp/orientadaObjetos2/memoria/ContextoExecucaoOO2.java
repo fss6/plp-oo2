@@ -14,6 +14,7 @@ import plp.orientadaObjetos1.memoria.colecao.ListaValor;
 import plp.orientadaObjetos2.util.SuperClasseMap;
 
 public class ContextoExecucaoOO2 extends ContextoExecucaoOO1 implements AmbienteExecucaoOO2 {
+	
 	private ArrayList<SuperClasseMap> arraySuperClasse;
 
 	public ContextoExecucaoOO2() {
