@@ -67,7 +67,7 @@ public class ExpInstanceOf extends ExpBinaria{
     	DefClasse classe = ambiente.getDefClasse(expClasse.getId());
 		
  
-        if(getEsq().getTipo(ambiente) instanceof TipoClasse ||classe != null) 
+        if(getEsq().getTipo(ambiente) instanceof TipoClasse && classe != null) 
         	result = true;
             
         return result;
