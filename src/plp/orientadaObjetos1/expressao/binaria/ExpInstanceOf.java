@@ -104,13 +104,24 @@ public class ExpInstanceOf extends ExpBinaria{
 	    DefClasseOO2 defClasse = (DefClasseOO2) ambiente.getDefClasse(idObjeto);
 	    Id idSuperClasse = defClasse.getNomeSuperClasse();
 	    
-	    //Verifica se o objeto e da mesma instancia da classe
-        if (idObjeto.equals(classe)){
-        	compara = true;
-        //Verifica se o objeto e da mesma instancia da super classe	
-        }else if(idSuperClasse != null && idSuperClasse.equals(classe)){
-        	compara = true;
-        }
+	    //Verifica se o objeto (expEsq) e da instancia da classe (expDir)
+	    if (idObjeto.equals(classe))
+	        compara = true;
+	    
+	    //Entra caso o objeto possua superclasse e se a condicao anterior
+	    //nao tenha sido satisfeita.
+	    while(idSuperClasse != null && compara != true){
+	    	System.out.println("entrei");
+	    	//Verifica se o objeto e da instancia das superclasses
+	    	if(idSuperClasse.equals(classe)){
+	    		compara = true;
+	    		//idSuperClasse = null;
+	    	}else{//caso contrario chama a superclasse da superclasse (se existir)
+	    		defClasse = (DefClasseOO2) ambiente.getDefClasse(idSuperClasse);
+	    	    idSuperClasse = defClasse.getNomeSuperClasse();
+	    	}
+	    }
+	        
      
         return new ValorBooleano(compara);
     }
