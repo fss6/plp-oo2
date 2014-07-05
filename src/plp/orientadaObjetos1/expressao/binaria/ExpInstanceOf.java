@@ -111,11 +111,9 @@ public class ExpInstanceOf extends ExpBinaria{
 	    //Entra caso o objeto possua superclasse e se a condicao anterior
 	    //nao tenha sido satisfeita.
 	    while(idSuperClasse != null && compara != true){
-	    	System.out.println("entrei");
 	    	//Verifica se o objeto e da instancia das superclasses
 	    	if(idSuperClasse.equals(classe)){
 	    		compara = true;
-	    		//idSuperClasse = null;
 	    	}else{//caso contrario chama a superclasse da superclasse (se existir)
 	    		defClasse = (DefClasseOO2) ambiente.getDefClasse(idSuperClasse);
 	    	    idSuperClasse = defClasse.getNomeSuperClasse();
