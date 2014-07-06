@@ -62,12 +62,15 @@ public class ExpInstanceOf extends ExpBinaria{
         
     	boolean result = false;
     	
+    	//Obtem a expressao da direita
     	LeftExpression expClasse = (LeftExpression) getDir();
     	//Levanta excecao caso a classe nao esteja declarada
     	DefClasse classe = ambiente.getDefClasse(expClasse.getId());
-		
- 
-        if(getEsq().getTipo(ambiente) instanceof TipoClasse && classe != null) 
+    	//Obtem o tipo do objeto a partir da expressao da esquerda
+    	Tipo objeto = getEsq().getTipo(ambiente);
+    	
+    	//Verifica se o objeto e instancia TipoClasse e se a classe foi declarada
+        if(objeto instanceof TipoClasse && classe != null) 
         	result = true;
             
         return result;
@@ -96,20 +99,26 @@ public class ExpInstanceOf extends ExpBinaria{
         
     	boolean compara = false;
         
-        ValorRef vr = (ValorRef) getEsq().avaliar(ambiente); // recupera o id do objeto
-        Objeto objeto =  ambiente.getObjeto(vr);// recupera o objeto
-	    Id idObjeto = objeto.getClasse(); // recupera o tipo do objeto
-	    
+    	//recupera referencia do objeto
+        ValorRef vr = (ValorRef) getEsq().avaliar(ambiente);
+        //recupera o objeto
+        Objeto objeto =  ambiente.getObjeto(vr);
+        //recupera o id do objeto
+	    Id idObjeto = objeto.getClasse(); 
+	   
 	    LeftExpression classe   = (LeftExpression) getDir();
-	    DefClasseOO2 defClasse = (DefClasseOO2) ambiente.getDefClasse(idObjeto);
-	    Id idSuperClasse = defClasse.getNomeSuperClasse();
 	    
-	    //Verifica se o objeto (expEsq) e da instancia da classe (expDir)
+	    //Verifica se o objeto (id) e igual ao id da classe
 	    if (idObjeto.equals(classe))
 	        compara = true;
 	    
-	    //Entra caso o objeto possua superclasse e se a condicao anterior
-	    //nao tenha sido satisfeita.
+	    
+	    //Recupera o id da superclasse caso exista
+	    DefClasseOO2 defClasse = (DefClasseOO2) ambiente.getDefClasse(idObjeto);
+	    Id idSuperClasse = defClasse.getNomeSuperClasse();
+	    
+	    //Entra no laco caso o objeto possua superclasse e se a condicao
+	    //anterior nao tenha sido satisfeita.
 	    while(idSuperClasse != null && compara != true){
 	    	//Verifica se o objeto e da instancia das superclasses
 	    	if(idSuperClasse.equals(classe)){
